@@ -104,3 +104,25 @@ CREATE TABLE producto_proveedor (
     FOREIGN KEY (id_producto) REFERENCES producto(id_producto),
     FOREIGN KEY (id_proveedor) REFERENCES proveedor(id_proveedor)
 );
+
+-- Tabla: precio
+CREATE TABLE precio (
+    id_precio INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_producto INT UNSIGNED,
+    precio DECIMAL(10, 2),
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+);
+
+-- Tabla: orden_pago
+CREATE TABLE orden_pago (
+    id_orden_pago INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT UNSIGNED,
+    id_metodo_pago INT UNSIGNED,
+    monto DECIMAL(10, 2),
+    estado_pago ENUM('pendiente', 'pagado', 'cancelado') DEFAULT 'pendiente',
+    fecha_pago DATETIME,
+    FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido),
+    FOREIGN KEY (id_metodo_pago) REFERENCES metodo_pago(id_metodo_pago)
+);
